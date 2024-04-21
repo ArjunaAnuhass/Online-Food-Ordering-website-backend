@@ -27,7 +27,6 @@ public class CartItem {
 
     private int quantity;
 
-    @OneToMany
     private List<String> ingredients;
 
     private Long totalPrice;
