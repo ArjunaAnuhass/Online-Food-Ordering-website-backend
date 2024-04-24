@@ -24,7 +24,7 @@ public class CustomerUserDetailsService implements UserDetailsService {
 
         User user = userRepo.findByEmail(username);
 
-        if (user!=null){
+        if (user==null){
             throw new UsernameNotFoundException("User Not found with email " + username);
         }
 
