@@ -18,11 +18,10 @@ public class IngredientsItem {
 
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private IngredientCategory category;
 
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
 
     private boolean inStock = true;
