@@ -22,6 +22,7 @@ public class IngredientsItem {
     private IngredientCategory category;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Restaurant restaurant;
 
     private boolean inStock = true;
