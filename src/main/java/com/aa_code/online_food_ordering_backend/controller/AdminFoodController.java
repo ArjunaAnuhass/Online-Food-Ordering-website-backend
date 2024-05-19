@@ -28,7 +28,7 @@ public class AdminFoodController {
         this.restaurantService = restaurantService;
     }
 
-    @PostMapping()
+    @PostMapping(path = "/createFood")
     public ResponseEntity<Food> createFood(@RequestBody CreateFoodRequest createFoodRequest, @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
 

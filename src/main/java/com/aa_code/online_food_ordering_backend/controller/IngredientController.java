@@ -4,6 +4,7 @@ import com.aa_code.online_food_ordering_backend.Model.IngredientCategory;
 import com.aa_code.online_food_ordering_backend.Model.IngredientsItem;
 import com.aa_code.online_food_ordering_backend.request.IngredientCategoryRequest;
 import com.aa_code.online_food_ordering_backend.request.IngredientItemRequest;
+import com.aa_code.online_food_ordering_backend.response.MessageResponse;
 import com.aa_code.online_food_ordering_backend.service.IngredientsService;
 import com.aa_code.online_food_ordering_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,5 +60,15 @@ public class IngredientController {
         List<IngredientCategory> ingredientCategories = ingredientsService.findIngredientCategoryByRestaurantId(id);
 
         return new ResponseEntity<>(ingredientCategories, HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<MessageResponse> deleteIngredientCategory(@PathVariable Long id) throws Exception {
+        ingredientsService.deleteIngredientCategory(id);
+
+        MessageResponse messageResponse = new MessageResponse();
+        messageResponse.setMessage("Ingredient Category Deleted Successfully...");
+
+        return new ResponseEntity<>(messageResponse, HttpStatus.OK);
     }
 }

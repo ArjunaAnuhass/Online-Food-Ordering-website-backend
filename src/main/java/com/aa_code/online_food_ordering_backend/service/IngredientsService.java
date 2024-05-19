@@ -18,4 +18,6 @@ public interface IngredientsService {
     public List<IngredientsItem> findRestaurantsIngredients(Long restaurantId) throws Exception;
 
     public IngredientsItem updateStock(Long id) throws Exception;
+
+    public void deleteIngredientCategory(Long id) throws Exception;
 }

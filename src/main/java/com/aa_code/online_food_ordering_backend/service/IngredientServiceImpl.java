@@ -1,5 +1,6 @@
 package com.aa_code.online_food_ordering_backend.service;
 
+import com.aa_code.online_food_ordering_backend.Model.Category;
 import com.aa_code.online_food_ordering_backend.Model.IngredientCategory;
 import com.aa_code.online_food_ordering_backend.Model.IngredientsItem;
 import com.aa_code.online_food_ordering_backend.Model.Restaurant;
@@ -82,5 +83,13 @@ public class IngredientServiceImpl implements IngredientsService{
         IngredientsItem ingredientsItem = optionalIngredientsItem.get();
         ingredientsItem.setInStock(!ingredientsItem.isInStock());
         return ingredientItemRepo.save(ingredientsItem);
+    }
+
+    @Override
+    public void deleteIngredientCategory(Long id) throws Exception {
+        IngredientCategory ingredientCategory = findIngredientCategoryById(id);
+        ingredientCategory.setRestaurant(null);
+
+        ingredientCategoryRepo.delete(ingredientCategory);
     }
 }
