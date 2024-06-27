@@ -4,7 +4,9 @@ import com.aa_code.online_food_ordering_backend.Model.CartItem;
 import com.aa_code.online_food_ordering_backend.Model.Order;
 import com.aa_code.online_food_ordering_backend.Model.User;
 import com.aa_code.online_food_ordering_backend.request.OrderRequest;
+import com.aa_code.online_food_ordering_backend.response.PaymentResponse;
 import com.aa_code.online_food_ordering_backend.service.OrderService;
+import com.aa_code.online_food_ordering_backend.service.PaymentService;
 import com.aa_code.online_food_ordering_backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,19 +21,23 @@ public class OrderController {
 
     private final OrderService orderService;
     private final UserService userService;
+    private final PaymentService paymentService;
 
     @Autowired
-    public OrderController(OrderService orderService, UserService userService) {
+    public OrderController(OrderService orderService, UserService userService, PaymentService paymentService) {
         this.orderService = orderService;
         this.userService = userService;
+        this.paymentService = paymentService;
     }
 
     @PostMapping(path = "/order")
-    public ResponseEntity<Order> createOrder(@RequestBody OrderRequest orderRequest, @RequestHeader("Authorization") String jwt) throws Exception {
+    public ResponseEntity<PaymentResponse> createOrder(@RequestBody OrderRequest orderRequest, @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserByJwtToken(jwt);
         Order order = orderService.createOrder(orderRequest, user);
 
-        return new ResponseEntity<>(order, HttpStatus.CREATED);
+        PaymentResponse response = paymentService.createPaymentLink(order);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @GetMapping(path = "/order/user")
